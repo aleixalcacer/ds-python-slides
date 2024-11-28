@@ -1,0 +1,602 @@
+---
+title: "Data Science con Python"
+subtitle: "01. Introducción a Python"
+author: "Aleix Alcacer Sales"
+date: "2024-12-02"
+date-format: long
+lang: es
+format:
+  revealjs:
+    smaller: true
+    execute:
+      echo: true
+    slide-number: c/t
+    
+---
+
+# Introducción
+
+## ¿Qué es Python? 🐍
+
+- **Python** es un lenguaje de programación creado por **Guido van Rossum** en 1991.
+- **Filosofía**: sencillo, legible y eficiente para trabajar.
+- **Características**:
+  - Lenguaje de propósito general.
+  - Código abierto y multiplataforma.
+  - Enorme ecosistema de bibliotecas.
+  - Comunidad activa y en crecimiento.
+- **Aplicaciones**:
+  - Ciencia de datos y aprendizaje automático.
+  - Desarrollo web con frameworks como Django y Flask.
+  - Automatización de tareas (scripts, bots, scraping).
+
+---
+
+## Conceptos básicos
+
+1. **Separación de instrucciones**: Cada línea contiene una instrucción, haciendo el código más legible.  
+    - Se utiliza el carácter `;` para separar instrucciones en la misma línea.
+2. **Variables**: Los datos pueden almacenarse en variables para usarlos posteriormente.  
+   - Una variable es un nombre que comienza con una letra y no contiene espacios. 
+3. **Comentarios**: Se utilizan para explicar el código y no se ejecutan.  
+   - Comienzan con `#`.
+4. **Impresión de resultados**: Se utiliza la función `print()` para mostrar resultados en la consola. 
+ 
+```{python}
+nombre = "Ana"  # Variable de tipo string
+edad = 25  # Variable de tipo entero
+
+print("Nombre:", nombre, "Edad:", edad)
+```
+
+
+# Tipos de datos
+
+## Tipos básicos
+
+1. **Numéricos**:
+    - **Enteros (`int`)**: Números sin decimales.  
+      ```{python}
+      entero = 5
+      print(entero)  # Salida: 5
+      ```
+    - **Flotantes (`float`)**: Números con decimales.  
+      ```{python}
+      flotante = 5.3
+      print(flotante)  # Salida: 5.3
+      ```
+    - **Complejos (`complex`)**: Números con parte real e imaginaria.  
+      ```{python}
+      complejo = 3 + 2j
+      print(complejo)  # Salida: (3+2j)
+      ```
+
+---
+
+2. **Cadenas de caracteres (`str`)**: Texto delimitado por comillas simples o dobles.  
+   ```{python}
+   cadena = "Hola, mundo"
+   print(cadena)  # Salida: Hola, mundo
+   ```
+   
+
+
+3. **Booleanos (`bool`)**: Valores lógicos `True` o `False`.  
+   ```{python}
+   es_mayor = 5 > 3
+   print(es_mayor)  # Salida: True
+   ```
+
+4. **None**: Representa la ausencia de valor.  
+   ```{python}
+   vacio = None
+   print(vacio)  # Salida: None
+   ```
+
+
+Además, es posible convertir un tipo de dato a otro. Algunas funciones útiles son `int()`, `float()`, `str()`, `bool()`, entre otras.
+
+```{python}
+numero = 5  # Entero
+cadena = str(numero)
+print(cadena)  # Salida: "5"
+flotante = float(numero)
+print(flotante)  # Salida: 5.0
+```
+
+# Operadores
+
+## Operadores aritméticos
+
+Realizan operaciones matemáticas básicas y avanzadas.
+
+
+| Operador | Descripción          | Ejemplo   | Salida |
+|:--------:|:--------------------:|:---------:|:------:|
+| `+`      | Suma                 | `3 + 5`   | `8`    |
+| `-`      | Resta                | `5 - 3`   | `2`    |
+| `*`      | Multiplicación       | `4 * 2`   | `8`    |
+| `/`      | División             | `5 / 2`   | `2.5`  |
+| `//`     | División entera      | `5 // 2`  | `2`    |
+| `%`      | Resto de la división | `5 % 2`   | `1`    |
+
+
+```{python}
+x = 10
+y = 3
+
+print("La suma entre x e y es:", x + y)  # Salida: 13
+print("La división entre x e y es:", x / y)  # Salida: 3.3333333333333335
+print("El resto de la división entre x e y es:", x % y)  # Salida: 1
+```
+
+---
+
+### Operadores aritméticos para cadenas
+
+| Operador | Descripción   | Ejemplo            | Salida           |
+|:--------:|:-------------:|:------------------:|:----------------:|
+| `+`      | Concatenación | `"Hola" + "Mundo"` | `"Hola Mundo"`   |
+| `*`      | Repetición    | `"Hola" * 3`       | `"HolaHolaHola"` |
+
+
+```{python}
+cadena1 = "Hola"
+cadena2 = "Mundo"
+
+# Concatenación
+print("Concatenación:", cadena1 + " " + cadena2)  # Salida: Hola Mundo
+
+# Repetición
+print("Repetición:", cadena1 * 3)  # Salida: HolaHolaHola
+```
+
+---
+
+### Operadores lógicos
+
+Permiten comparar valores y tomar decisiones.
+
+| Operador | Descripción       | Ejemplo  | Salida  |
+|:--------:|:-----------------:|:--------:|:-------:|
+| `>`      | Mayor que         | `5 > 3`  | `True`  |
+| `<`      | Menor que         | `5 < 3`  | `False` |
+| `>=`     | Mayor o igual que | `5 >= 3` | `True`  |
+| `<=`     | Menor o igual que | `5 <= 3` | `False` |
+| `==`     | Igualdad          | `4 == 4` | `True`  |
+| `!=`     | Desigualdad       | `4 != 4` | `False` |
+
+
+
+```{python}
+print("Es 5 mayor que 3?", 5 > 3)  # Salida: True
+print("Es 5 igual a 3?", 5 == 3)    # Salida: False
+print("Es 5 distinto de 3?", 5 != 3)  # Salida: True
+```
+
+---
+
+### Operadores lógicos avanzados
+
+Permiten combinar condiciones.
+
+| Operador | Descripción | Ejemplo          | Salida  |
+|:--------:|:-----------:|:----------------:|:-------:|
+| `and`    | Y lógico    | `True and False` | `False` |
+| `or`     | O lógico    | `True or False`  | `True`  |
+| `not`    | Negación    | `not True`       | `False` |
+
+
+```{python}
+condA = True
+condB = False
+
+print("¿Ambas condiciones son verdaderas?", condA and condB)  # Salida: False
+print("¿Alguna de las condiciones es verdadera?", condA or condB)  # Salida: True
+print("¿La condición A es falsa?", not condA)  # Salida: False
+```
+
+# Estructuras Condicionales
+
+## If, Else y Elif
+
+Permiten tomar decisiones basadas en condiciones.
+
+- **`if`**: ejecuta un bloque de código si se cumple una condición.
+- **`else`**: ejecuta un bloque de código si no se cumple la condición.
+- **`elif`**: permite evaluar múltiples condiciones.
+
+```{python}
+x = 10
+if x > 5:
+    print("Mayor que 5")
+elif x == 5:
+    print("Igual a 5")
+else:
+    print("Menor que 5")
+```
+
+
+## Bucles
+
+Permiten ejecutar un bloque de código varias veces.
+
+Algunas instrucciones útiles para controlar los bucles son:
+
+- **`break`**: detiene la ejecución del bucle antes de que se complete.
+
+- **`continue`**: salta a la siguiente iteración del bucle.
+
+
+---
+
+### While
+
+**`while`**: ejecuta un bloque de código mientras se cumpla una condición.
+
+```{python}
+n = 11
+
+while n % 7 != 0:  # Mientras el resto de dividir n entre 7 no sea 0
+    print("El número", n, "no es divisible por 7")
+    n += 1
+
+print("El número", n, "es divisible por 7")
+```
+
+```{python}
+n = 0
+
+while n < 10:  # Bucle infinito
+    if n % 3 == 0:
+        n += 1
+        continue
+    print("El número", n, "no es divisible por 3")
+    n += 1
+```
+
+---
+
+### For
+
+**`for`**: itera sobre una secuencia de elementos.
+  
+A menudo se utiliza con la función **`range()`**, que genera una secuencia de números.
+
+```{python}
+for i in range(4):
+    print(f"Iteración {i}")
+```
+
+```{python}
+for i in range(4, 8):
+    print(f"Iteración {i}")
+```
+
+```{python}
+for i in range(16, 0, -4):
+    print(f"Iteración {i}")
+    if i < 10:
+        print("El número", i, "es menor que 10, se rompe el bucle")
+        break
+```
+
+
+# Funciones
+
+## Definición
+
+Las funciones permiten reutilizar código y dividirlo en bloques más pequeños.
+
+- **Definición**: se realiza con la palabra clave **`def`** seguida del nombre de la función y los parámetros. Puede devolver un valor con la palabra clave **`return`**.
+
+- **Llamada**: se realiza escribiendo el nombre de la función seguido de los argumentos. En caso de que devuelva un valor, se puede almacenar en una variable.
+
+- **Argumentos**: son los valores que se pasan a la función al llamarla. Pueden ser obligatorios o opcionales.
+
+```{python}
+
+def potencia(base, exponente=2):
+    return base ** exponente
+
+resultado = potencia(3)
+print("3 elevado al cuadrado es:", resultado)  # Salida: 9
+
+resultado = potencia(3, 3)
+print("3 elevado al cubo es:", resultado)  # Salida: 27
+```
+
+
+# Classes y Objetos
+
+## Definición
+
+Las clases permiten definir nuevos tipos de datos. Un objeto es una instancia de una clase.
+
+- **Definición**: se realiza con la palabra clave **`class`** seguida del nombre de la clase.
+- **Instancia**: se crea un objeto de una clase utilizando el nombre de la clase seguido de paréntesis.
+- **Atributos**: son variables asociadas a un objeto. Se acceden con la notación de punto.
+- **Métodos**: son funciones asociadas a un objeto. Se definen dentro de la clase y se acceden con la notación de punto.
+- **Constructor**: es un método especial llamado **`__init__`** que se ejecuta al crear un objeto y permite inicializar sus atributos.
+---
+
+### Ejemplo
+```{python}
+
+class Persona:
+    def __init__(self, nombre, edad):  # Constructor
+        self.nombre = nombre  # Atributo
+        self.edad = edad  # Atributo
+
+    def saludar(self):  # Método
+        print(f"Hola, me llamo {self.nombre} y tengo {self.edad} años")
+
+    def es_mayor_de_edad(self):  # Método
+        return self.edad >= 18
+
+
+ana = Persona("Ana", 25)
+
+ana.saludar()  # Salida: Hola, me llamo Ana y tengo 25 años
+
+print("¿Es Ana mayor de edad?", ana.es_mayor_de_edad())  # Salida: True
+
+juan = Persona("Juan", 17)
+
+print("¿És Juan mayor que Ana?", juan.es_mayor_de_edad() > ana.es_mayor_de_edad())  # Salida: False
+```
+
+## Clase `list`
+
+Para almacenar varios elementos en una sola variable, se puede utilizar la clase **`list`**. Se construye con corchetes `[]`.
+
+### Indexación
+
+Permite acceder a los elementos de una lista utilizando un índice. Los índices comienzan en 0 y pueden ser negativos. La longitud de la lista se obtiene con la función **`len()`**.
+
+```{python}
+numeros = [1, 2, 3, 4, 5]
+
+print("El primer número es:", numeros[0])  # Salida: 1
+print("El último número es:", numeros[-1])  # Salida: 5
+print("Los tres primeros números son:", numeros[:3])  # Salida: [1, 2, 3]
+print("Los dos últimos números son:", numeros[-2:])  # Salida: [4, 5]
+print("La lista invertida es:", numeros[::-1])  # Salida: [5, 4, 3, 2, 1]
+print("La longitud de la lista es:", len(numeros))  # Salida: 5
+```
+
+---
+
+### Métodos
+
+Algunos métodos útiles de la clase **`list`** son:
+
+- **`append(elemento)`**: añade un elemento al final de la lista.
+- **`extend(lista)`**: añade los elementos de una lista al final de la lista.
+- **`insert(i, elemento)`**: inserta un elemento en la posición `i`.
+- **`remove(elemento)`**: elimina la primera aparición de un elemento.
+- **`pop(i)`**: elimina el elemento en la posición `i` y lo devuelve.
+
+
+```{python}
+numeros = [0, 1, 2, 3, 4, 5]
+
+numeros.append(6); print(numeros)  # Salida: [0, 1, 2, 3, 4, 5, 6]
+numeros.extend([7, 8]); print(numeros)  # Salida: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+numeros.insert(3, 2.5); print(numeros)  # Salida: [0, 1, 2, 2.5, 3, 4, 5, 6, 7, 8]
+numeros.remove(2.5); print(numeros)  # Salida: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+elemento = numeros.pop(2); print("Elemento eliminado:", elemento)  # Salida: 2
+```
+
+
+## Clase `str`
+
+La clase **`str`** permite trabajar con cadenas de caracteres. 
+
+### Indexación
+
+Al igual que con las listas, se puede acceder a los caracteres de una cadena utilizando un índice.
+
+```{python}
+cadena = "Python"
+
+print("El primer carácter es:", cadena[0])  # Salida: P
+print("El último carácter es:", cadena[-1])  # Salida: n
+print("Los tres primeros caracteres son:", cadena[:3])  # Salida: Pyt
+print("Los dos últimos caracteres son:", cadena[-2:])  # Salida: on
+print("La cadena invertida es:", cadena[::-1])  # Salida: nohtyP
+print("La longitud de la cadena es:", len(cadena))  # Salida: 6
+```
+
+---
+
+### Métodos
+
+Algunos métodos útiles de la clase **`str`** son:
+
+- **`upper()`**: convierte la cadena a mayúsculas.
+- **`lower()`**: convierte la cadena a minúsculas.
+- **`replace(buscar, reemplazar)`**: reemplaza todas las apariciones de un texto.
+- **`split(separador)`**: divide la cadena en una lista de subcadenas.
+- **`join(lista)`**: une una lista de cadenas en una sola cadena.
+
+```{python}
+cadena = "Hola, mundo"
+
+print("En mayúsculas:", cadena.upper())  # Salida: HOLA, MUNDO
+print("En minúsculas:", cadena.lower())  # Salida: hola, mundo
+print("Reemplazar las comas por puntos:", cadena.replace(",", "."))  # Salida: Hola. mundo
+print("Dividir la cadena por las comas:", cadena.split(","))  # Salida: ['Hola', ' mundo']
+print("Unir las palabras con guiones:", "-".join(["Hola", "mundo"]))  # Salida: Hola-mundo
+```
+
+# Excepciones
+
+## Manejo de Errores
+
+Las excepciones son errores que ocurren durante la ejecución de un programa. Python permite manejar estas excepciones para evitar que el programa se detenga.
+
+- **`try`**: se utiliza para probar un bloque de código en busca de errores.
+- **`except`**: se ejecuta si se produce un error en el bloque `try`. Puede especificar el tipo de error.
+- **`else`**: se ejecuta si no se produce ningún error en el bloque `try`.
+- **`finally`**: se ejecuta siempre, independientemente de si se produce un error.
+
+```{python}
+for div in [0, 3]:
+    try:
+        x = 10 / div
+    except ZeroDivisionError:
+        print("Error: división por cero")
+    else:
+        print("La división es:", x)
+    finally:
+        print("Fin de la iteración con divisor", div)
+
+```
+
+
+
+# Módulos y Paquetes
+
+## Módulos
+
+Un módulo es un archivo que contiene definiciones y declaraciones de Python. Puede contener funciones, clases y variables.
+
+- **Creación de módulos**: se crea un archivo con extensión `.py` y se guardan las definiciones en él.
+
+  ```python
+  # operaciones.py
+
+  def suma(a, b):
+      return a + b
+
+  def resta(a, b):
+      return a - b
+  ```
+
+- **Uso de módulos**: se importa el módulo con la palabra clave **`import`**.
+
+  ```{python}
+  import operaciones
+
+  sum = operaciones.suma(3, 5)
+  print("La suma de 3 y 5 es:", sum)  # Salida: 8
+
+  res = operaciones.resta(10, 4)
+  print("La resta de 10 y 4 es:", res)  # Salida: 6
+  ```
+
+---
+
+También se puede importar un módulo con un alias utilizando la palabra clave **`as`**.
+
+```{python}
+import operaciones as ops
+
+sum = ops.suma(3, 5)
+print("La suma de 3 y 5 es:", sum)  # Salida: 8
+```
+
+Si solo se necesita una función o clase de un módulo, se puede importar de forma selectiva.
+
+```{python}
+from operaciones import resta
+
+res = resta(10, 4)
+print("La resta de 10 y 4 es:", res)  # Salida: 6
+```
+
+También se pueden importar todas las definiciones de un módulo con el carácter `*`.
+
+```{python}
+from operaciones import *
+
+sum = suma(3, 5)
+print("La suma de 3 y 5 es:", sum)  # Salida: 8
+
+res = resta(10, 4)
+print("La resta de 10 y 4 es:", res)  # Salida: 6
+```
+
+---
+
+### Módulos estándar
+
+Python incluye una gran cantidad de módulos estándar que proporcionan funcionalidades adicionales. Algunos ejemplos son:
+
+- **`math`**: funciones matemáticas.
+- **`random`**: generación de números aleatorios.
+- **`datetime`**: manipulación de fechas y horas.
+- **`os`**: funciones del sistema operativo.
+
+```{python}
+import math
+import random
+import datetime
+import os
+
+print("Raíz cuadrada de 16:", math.sqrt(16))
+print("Número aleatorio entre 1 y 10:", random.randint(1, 10))
+print("Fecha y hora actual:", datetime.datetime.now())
+print("Directorio actual:", os.getcwd())
+```
+
+## Paquetes
+
+Un paquete es una colección de módulos organizados en un directorio.
+
+- **Creación de paquetes**: se crea un directorio con un archivo `__init__.py` y se guardan los módulos en él.
+
+  ```bash
+  paquete/
+  ├── __init__.py
+  ├── modulo1.py
+  └── modulo2.py
+  ```
+
+- **Uso de paquetes**: se importa el paquete y los módulos con la palabra clave **`import`**.
+
+  ```python
+  import paquete.modulo1
+
+  paquete.modulo1.funcion()
+
+  from paquete import modulo2
+
+  modulo2.otra_funcion()
+  ```
+
+---
+
+### Paquetes externos
+
+Además de los módulos estándar, Python cuenta con una gran cantidad de paquetes externos que se pueden instalar y utilizar. El repositorio oficial de paquetes es **[PyPI](https://pypi.org/)**.
+
+- **Instalación de paquetes**: se utiliza la herramienta **`pip`** para instalar paquetes.
+
+  ```bash
+  pip install nombre_paquete
+  ```
+
+  Algunos paquetes populares son:
+  - **`numpy`**: operaciones matemáticas avanzadas de matrices y vectores.
+  - **`pandas`**: manipulación y análisis de datos estructurados.
+  - **`matplotlib`**: visualización de datos.
+  - **`scikit-learn`**: aprendizaje automático y minería de datos.
+
+# Conclusiones
+
+## Resumen
+
+- Python es un lenguaje de programación versátil y fácil de aprender.
+- Permite trabajar con diferentes tipos de datos, operadores y estructuras de control.
+- Las funciones y clases permiten organizar y reutilizar el código.
+- El manejo de excepciones evita que los errores detengan la ejecución del programa.
+- Los módulos y paquetes permiten extender las funcionalidades de Python.
+
+### Próximos Pasos
+
+- Aprender cual es el proceso de análisis de datos.
+- Conocer las librerías más utilizadas en Data Science en cada etapa del proceso.
+- Realizar un mini-proyecto de análisis de datos.
+

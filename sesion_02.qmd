@@ -1,0 +1,744 @@
+---
+title: "Ciencia de datos con Python"
+subtitle: "02. Ciencia de datos con Python"
+author: "Aleix Alcacer Sales"
+date: "2024-12-02"
+date-format: long
+lang: es
+format:
+  revealjs:
+    smaller: true
+    execute:
+      echo: true
+    slide-number: c/t
+    
+---
+
+
+# Introducción
+
+## Repaso de la sesión anterior
+
+- Introducción a la programación en Python
+- Variables y tipos de datos
+- Operadores
+- Estructuras de control
+- Funciones y objetos
+- Módulos y paquetes
+
+## Objetivos de la sesión
+
+- Introducción a la ciencia de datos. Workflow de un proyecto de ciencia de datos.
+- Importación y preprocesamiento de datos con `pandas`.
+- Exploración de datos con `pandas` y `seaborn`.
+- Modelado de datos con `scikit-learn`.
+- Visualización de los resultados con `altair`.
+- Despliegue de aplicaciones con `streamlit`.
+
+## Qué es la ciencia de datos?
+
+La ciencia de datos es un campo interdisciplinario que involucra métodos científicos, procesos y sistemas para extraer conocimiento o un mejor entendimiento de datos en sus diferentes formas, ya sea estructurados o no estructurados.
+
+### Flujo de trabajo
+
+1. Definición del problema.
+2. Recopilación de datos.
+3. Preprocesamiento de datos.
+4. Análisis exploratorio de datos.
+5. Modelado de datos.
+6. Evaluación de modelos.
+7. Despliegue de aplicaciones.
+
+---
+
+# Importación y limpieza de datos: Pandas
+
+## Pandas
+
+`pandas` es una librería de Python que proporciona estructuras de datos y herramientas de análisis de datos. Permite cargar, manipular y analizar datos de forma sencilla y eficiente.
+
+
+**Instalación**
+
+Para instalar `pandas`, podemos utilizar el gestor de paquetes `pip`:
+
+```bash
+pip install pandas
+```
+
+**Alternativas**
+
+Algunas alternativas a `pandas` son:
+
+- `polars`: Librería de procesamiento de datos en memoria optimizada para trabajar con grandes volúmenes de datos.
+- `dask`: Librería de computación paralela y distribuida.
+
+---
+
+### Estructuras de datos en pandas
+
+Algunas de las estructuras de datos más utilizadas en `pandas` son:
+
+- `Series`: Array unidimensional con etiquetas.
+
+  ```{python}
+  import pandas as pd
+
+  s = pd.Series({
+    'A': [1, 2, 3, 4, 5]
+  })
+
+  print(s)
+  ```
+
+- `DataFrame`: Array bidimensional con etiquetas en filas y columnas.
+
+  ```{python}
+  df = pd.DataFrame({
+    'A': [1, 2, 3, 4, 5],
+    'B': [6, 7, 8, 9, 10]
+  })
+  
+  print(df)
+  ```
+
+---
+
+### Indexación y selección de datos
+
+Para acceder a los elementos de un `DataFrame` podemos utilizar los métodos:
+
+- `loc`: Accede a un grupo de filas y columnas por etiqueta.
+- `iloc`: Accede a un grupo de filas y columnas por posición.
+
+```{python}
+#| output: false
+
+
+df = pd.DataFrame({'A': [1, 2, 3, 4, 5], 'B': [6, 7, 8, 9, 10]}, index=['a', 'b', 'c', 'd', 'e'])
+
+# Acceder a la fila con etiqueta 'c'
+df.loc['c']
+
+# Acceder a las filas con posición 1 y 3
+df.iloc[1:4:2]
+
+# Acceder a la columna 'A'
+df['A']
+
+# Acceder a las columnas con posición 0 y 1
+df.iloc[[0, 1]]
+
+# Acceder al elemento de la fila 'a' y la columna 'A'
+df.loc['a', 'A']
+```
+
+---
+
+### Lectura y escritura de datos
+
+Se pueden cargar datos desde diferentes fuentes, como archivos CSV, Excel, Parquet, etc. Para ello, `pandas` proporciona funciones como `read_csv`, `read_excel`, `read_parquet`, etc.
+```{python}
+#| output: false
+#| eval: false
+
+
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+df = pd.read_excel('data.xlsx')
+df = pd.read_parquet('data.parquet')
+```
+
+De igual forma, se pueden guardar los datos en diferentes formatos. Para ello, existen métodos como `to_csv`, `to_excel`, `to_parquet`, etc.
+```{python}
+#| output: false
+#| eval: false
+
+df.to_csv('data.csv', index=False)
+df.to_excel('data.xlsx', index=False)
+df.to_parquet('data.parquet')
+```
+
+En todos los casos, se pueden especificar diferentes opciones, como el separador de campos, el formato de las fechas, etc.
+
+---
+
+### Limpieza de datos
+
+Para limpiar los datos, podemos utilizar métodos como:
+
+- `drop_duplicates`: Elimina filas duplicadas.
+- `dropna`: Elimina filas o columnas con valores faltantes.
+- `fillna`: Rellena valores faltantes con un valor específico.
+- `replace`: Reemplaza valores específicos por otros valores.
+
+
+```{python}
+#| output: false
+
+df = pd.DataFrame({
+    'A': [1, 2, 3, 4, 5],
+    'B': [6, 7, pd.NA, 9, 10]
+})
+
+# Eliminar filas con valores faltantes
+df.dropna()
+
+# Eliminar columnas con valores faltantes
+df.dropna(axis=1)
+
+# Rellenar valores faltantes con un valor específico
+df.fillna(0)
+
+# Reemplazar valores específicos
+df.replace({1: 0, 2: 3})
+```
+
+---
+
+### Filtrado de datos
+
+Para filtrar los datos, podemos utilizar métodos como:
+
+- `query`: Filtra las filas que cumplen una condición.
+- `isin`: Filtra las filas que contienen valores específicos.
+- `between`: Filtra las filas que están entre dos valores.
+
+```{python}
+#| output: false
+
+df = pd.DataFrame({
+    'A': [1, 2, 3, 4, 5],
+    'B': [6, 7, 8, 9, 10]
+})
+
+# Filtrar las filas donde A es mayor que 2
+df.query('A > 2')
+
+# Filtrar las filas donde A es 2 o 4
+df[df['A'].isin([2, 4])]
+
+# Filtrar las filas donde A está entre 2 y 4
+df[df['A'].between(2, 4)]
+
+# Filtrar las filas donde A está entre 2 y 4 y B es mayor que 8
+df[(df['A'].between(2, 4)) & (df['B'] > 8)]
+```
+
+
+# Exploración de datos: Seaborn
+
+## Seaborn
+
+`seaborn` es una librería de Python que proporciona una interfaz de alto nivel para crear gráficos estadísticos atractivos y informativos. Está construida sobre `matplotlib` y proporciona una API más sencilla y potente.
+
+**Instalación**
+
+Para instalar `seaborn`, podemos utilizar el gestor de paquetes `pip`:
+
+```bash
+pip install seaborn
+```
+
+**Alternativas**
+
+Otras librerías de visualización de datos en Python son:
+
+- `matplotlib`: Librería de visualización de datos de bajo nivel.
+- `altair`: Librería de visualización de datos declarativa e interactiva.
+
+---
+
+### Gráficos en Seaborn
+
+Algunos de los gráficos más utilizados en `seaborn` son:
+
+- Basados en relaciones:
+  - `scatterplot`: Gráfico de dispersión.
+  - `lineplot`: Gráfico de líneas.
+- Basados en categorías:
+  - `stripplot`: Diagrama de dispersión.
+  - `boxplot`: Diagrama de caja.
+  - `violinplot`: Diagrama de violín.
+  - `swarmplot`: Diagrama de enjambre. 
+- Basados en distribuciones:
+  - `histplot`: Histograma.
+  - `kdeplot`: Estimación de densidad de kernel.
+
+```{python}
+#| output: false
+#| echo: false
+import seaborn as sns
+```
+
+---
+
+### Gráfico de dispersión
+
+El gráfico de dispersión es útil para visualizar la relación entre dos variables continuas.
+
+```{python}
+penguins = sns.load_dataset("penguins")
+
+sns.scatterplot(data=penguins, x="bill_length_mm", y="bill_depth_mm", hue="species")
+```
+
+---
+
+### Gráfico de líneas
+
+El gráfico de líneas es útil para visualizar la evolución de una variable a lo largo del tiempo.
+
+```{python}
+df = sns.load_dataset('flights')
+
+sns.lineplot(data=df, x='year', y='passengers', hue='month')
+```
+
+
+---
+
+### Diagramas
+
+Són gráficos que permiten visualizar la distribución de una variable numérica.
+
+::: {.panel-tabset}
+
+#### de dispersión
+
+```{python}
+
+penguins = sns.load_dataset('penguins')
+
+sns.stripplot(data=penguins, x='body_mass_g', y='species', hue='species')
+```
+
+#### de caja
+
+```{python}
+penguins = sns.load_dataset('penguins')
+
+sns.boxplot(data=penguins, x='body_mass_g', y='species', hue='species')
+```
+
+#### de violín
+
+```{python}
+penguins = sns.load_dataset('penguins')
+
+sns.violinplot(data=penguins, x='body_mass_g', y='species', hue='species')
+```
+
+#### de enjambre
+
+```{python}
+penguins = sns.load_dataset('penguins')
+
+sns.swarmplot(data=penguins, x='body_mass_g', y='species', hue='species')
+```
+
+:::
+
+---
+
+### Histograma
+
+El histograma es útil para visualizar la distribución de una variable numérica.
+
+```{python}
+penguins = sns.load_dataset('penguins')
+
+sns.histplot(data=penguins, x='body_mass_g', bins=20)
+```
+
+---
+
+### Estimación de densidad de kernel
+
+La estimación de densidad de kernel es útil para visualizar la distribución de una variable numérica.
+
+```{python}
+penguins = sns.load_dataset('penguins')
+
+sns.kdeplot(data=penguins, x='body_mass_g', hue='species', fill=True)
+```
+
+---
+
+### Aspectos avanzados
+
+Algunos aspectos avanzados de `seaborn` son:
+
+- **Personalización de gráficos**: Se pueden personalizar los gráficos cambiando colores, estilos, tamaños, etc.
+- **FacetGrid**: Permite crear múltiples gráficos en una sola figura.
+- **PairGrid**: Permite visualizar las relaciones entre múltiples variables.
+
+
+# Preprocesamiento y modelado de datos: Scikit-learn
+
+## Scikit-learn
+
+`scikit-learn` es una librería de Python que proporciona herramientas simples y eficientes para el aprendizaje automático. Proporciona una API consistente y fácil de usar.
+
+**Instalación**
+
+Para instalar `scikit-learn`, podemos utilizar el gestor de paquetes `pip`:
+
+```bash
+pip install scikit-learn
+```
+
+**Alternativas**
+
+Algunas alternativas a `scikit-learn` son:
+
+- `xgboost`: Librería de gradient boosting.
+- `statsmodels`: Librería de modelado estadístico.
+- `torch`: Librería de aprendizaje profundo.
+
+---
+
+### Preprocesamiento de datos
+
+Antes de entrenar un modelo, es necesario preprocesar los datos. Algunas técnicas comunes de preprocesamiento son:
+
+- **Escalamiento de características**: Normaliza las características para que tengan la misma escala.
+
+  ```{python}
+  from sklearn.preprocessing import StandardScaler
+
+  penguins = sns.load_dataset('penguins').dropna()
+
+  scaler = StandardScaler()
+  X_scaled = scaler.fit_transform(penguins[['bill_length_mm', 'bill_depth_mm']])
+  ```
+
+- **Codificación de variables categóricas**: Convierte variables categóricas en variables numéricas.
+  
+  ```{python}
+  from sklearn.preprocessing import OneHotEncoder
+
+  encoder = OneHotEncoder()
+  X_encoded = encoder.fit_transform(penguins[['species']])
+  ```
+
+---
+
+- **Imputación de valores faltantes**: Rellena los valores faltantes con un valor específico.
+  
+  ```{python}
+  from sklearn.impute import SimpleImputer
+
+  imputer = SimpleImputer(strategy='mean')
+  X_imputed = imputer.fit_transform(penguins[['body_mass_g']])
+  ```
+
+- **Selección de características**: Selecciona las características más relevantes para el modelo.
+
+  ```{python}
+  from sklearn.feature_selection import SelectKBest, f_regression
+
+  selector = SelectKBest(score_func=f_regression, k=2)
+  X_selected = selector.fit_transform(penguins.iloc[:,2:5], penguins['body_mass_g'])
+  ```
+
+
+#### Pipelines
+
+Para combinar múltiples pasos de preprocesamiento, se pueden utilizar `Pipeline`.
+
+```{python}
+from sklearn.pipeline import Pipeline
+
+pipeline = Pipeline([
+  ('scaler', StandardScaler()),
+  ('imputer', SimpleImputer(strategy='mean'))
+])
+
+X_preprocessed = pipeline.fit_transform(penguins[['bill_length_mm', 'bill_depth_mm']])
+```
+
+---
+
+### Modelado de datos
+
+Una vez preprocesados los datos, se pueden entrenar diferentes modelos. Algunos modelos comunes son:
+
+- **Regresión lineal**: Modelo que predice una variable continua a partir de otras variables continuas.
+
+  ```{python}
+  from sklearn.datasets import load_iris
+  from sklearn.linear_model import LinearRegression
+
+  X, y = load_iris(return_X_y=True)
+
+  model = LinearRegression()
+  linear_regression = model.fit(X, y)
+  ```
+
+- **Regresión logística**: Modelo que predice una variable categórica a partir de otras variables.
+
+  ```{python}
+  from sklearn.linear_model import LogisticRegression
+
+  model = LogisticRegression()
+  logistic_regression = model.fit(X, y)
+  ```
+
+---
+
+- **Árboles de decisión**: Modelo que divide los datos en subconjuntos más pequeños.
+
+  ```{python}
+  from sklearn.tree import DecisionTreeClassifier
+
+  model = DecisionTreeClassifier()
+  decision_tree = model.fit(X, y)
+  ```
+
+- **Random Forest**: Modelo que combina múltiples árboles de decisión.
+
+  ```{python}
+  from sklearn.ensemble import RandomForestClassifier
+
+  model = RandomForestClassifier()
+  random_forest = model.fit(X, y)
+  ```
+
+- **Clustering**: Modelo que agrupa los datos en clusters.
+
+  ```{python}
+  from sklearn.cluster import KMeans
+
+  model = KMeans(n_clusters=3)
+  kmeans = model.fit(X)
+  ```
+
+- **Redes neuronales**: Modelo que simula el funcionamiento del cerebro humano.
+
+  ```{python}
+  from sklearn.neural_network import MLPClassifier
+
+  model = MLPClassifier()
+  neural_network = model.fit(X, y)
+  ```
+---
+
+### Evaluación de modelos
+
+Se pueden hacer predicciones con un modelo entrenado utilizando el método `predict`.
+
+Además, para evaluar la precisión del modelo, se pueden utilizar diferentes métricas, como:
+
+- **Precisión**: Proporción de predicciones correctas.
+- **Recall**: Proporción de positivos reales que se identifican correctamente.
+- **F1-score**: Media armónica de precisión y recall.
+
+```{python}
+from sklearn.metrics import accuracy_score, recall_score, f1_score
+
+y_pred = neural_network.predict(X)
+
+accuracy = accuracy_score(y, y_pred)
+recall = recall_score(y, y_pred, average='macro')
+f1 = f1_score(y, y_pred, average='macro')
+
+print(f'Accuracy: {accuracy}')
+print(f'Recall: {recall}')
+print(f'F1-score: {f1}')
+```
+
+
+# Despliegue de aplicaciones: Streamlit
+
+## Streamlit
+
+`streamlit` es una librería de Python que permite crear aplicaciones web interactivas para el análisis de datos. Proporciona una API sencilla y potente para crear aplicaciones de forma rápida y sencilla.
+
+**Instalación**
+
+Para instalar `streamlit`, podemos utilizar el gestor de paquetes `pip`:
+
+```bash
+pip install streamlit
+```
+
+**Alternativas**
+
+Algunas alternativas a `streamlit` son:
+
+- `dash`: Librería de Python para crear aplicaciones web interactivas.
+- `voila`: Librería de Python para convertir notebooks de Jupyter en aplicaciones web.
+
+---
+
+### Creación de una aplicación
+
+Para crear una aplicación con `streamlit`, se tiene que crear un script de Python con el código de la aplicación.
+
+Por ejemplo, el siguiente script crea una aplicación que permite seleccionar un número y hacer clic en un botón.
+
+```{python}
+%%writefile app.py
+
+import streamlit as st
+
+st.title('Mi primera aplicación con Streamlit')
+
+numero = st.slider('Selecciona un número', 0, 100)
+st.write(f'Has seleccionado el número {numero}')
+
+if st.button('Haz clic aquí'):
+    st.write('¡Has hecho clic!')
+
+```
+
+Para ejecutar la aplicación, se puede utilizar el siguiente comando:
+
+```bash
+streamlit run app.py
+```
+
+---
+
+### Componentes de Streamlit
+
+Algunos de los componentes más utilizados en `streamlit` son:
+
+- **Título**: `st.title`, `st.header`, `st.subheader`.
+- **Texto**: `st.write`, `st.markdown`, `st.latex`.
+- **Widgets**: `st.slider`, `st.selectbox`, `st.checkbox`.
+- **Botones**: `st.button`, `st.radio`, `st.selectbox`.
+- **Entrada de texto**: `st.text_input`, `st.text_area`, `st.number_input`.
+- **Gráficos**: `st.pyplot`, `st.altair_chart`.
+- **Archivos**: `st.file_uploader`, `st.file_downloader`.
+
+---
+
+### Ejemplo de aplicación
+
+El siguiente script crea una aplicación que permite cargar un archivo CSV, seleccionar columnas para el eje x, el eje y y el color, visualizar los datos en un gráfico y entrenar un modelo de clasificación con los datos para hacer predicciones.
+
+```{python}
+#| output: false
+#| code-line-numbers: false
+
+%%writefile app_completa.py
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import train_test_split
+import streamlit as st
+```
+
+**Lectura de datos**
+
+```{python}
+#| output: false
+#| code-line-numbers: false
+
+%%writefile -a app_completa.py
+
+st.title('Explorador de datos')
+
+st.header('Cargar datos')
+file = st.file_uploader('Cargar archivo CSV', type='csv')
+
+if file is None:
+    st.warning('Por favor, carga un archivo CSV')
+else:
+    
+    df = pd.read_csv(file) 
+```
+
+---
+
+**Filtrado de datos**
+
+```{python}
+#| output: false
+#| code-line-numbers: false
+
+%%writefile -a app_completa.py
+
+    st.header('Filtrado de datos')
+
+    if st.checkbox('Eliminar filas con valores faltantes'):
+        df = df.dropna()
+
+    x = st.selectbox('Selecciona una columna para el eje x', df.columns)
+
+    y = st.selectbox('Selecciona una columna para el eje y', df.columns)
+
+    hue = st.selectbox('Selecciona una columna para el color', df.columns)
+```
+
+**Exploración de datos**
+
+```{python}
+#| output: false
+#| code-line-numbers: false
+
+%%writefile -a app_completa.py
+
+    st.header('Exploración de datos')
+
+    plot = st.selectbox('Selecciona un tipo de gráfico', ['scatterplot', 'swarmplot', 'kdeplot'])
+
+    fig, ax = plt.subplots()
+
+    getattr(sns, plot)(x=x, y=y, data=df, hue=hue, ax=ax)
+
+    st.pyplot(fig)
+```
+
+---
+
+**Modelado de datos**
+```{python}
+#| output: false
+#| code-line-numbers: false
+
+%%writefile -a app_completa.py
+
+    st.header('Modelado de datos')
+
+    if df.isnull().values.any():
+        st.warning('Por favor, elimina los valores faltantes')
+    else:
+
+        X_ = df[[x, y]]
+        y_ = df[hue]
+
+        X_train, X_test, y_train, y_test = train_test_split(X_, y_, test_size=0.2, random_state=42)
+
+        model = MLPClassifier(max_iter=1000)
+        model.fit(X_train, y_train)
+
+        score = model.score(X_test, y_test)
+        st.success('Modelo entrenado con éxito con un score de ' + str(score))
+```
+
+**Predicción de datos**
+
+```{python}
+#| output: false
+#| code-line-numbers: false
+
+%%writefile -a app_completa.py
+
+        st.header('Predicción de datos')
+
+        x_pred = st.number_input('Introduce un valor para ' + x)
+        y_pred = st.number_input('Introduce un valor para ' + y)
+
+        prediction = model.predict([[x_pred, y_pred]])
+        st.write('Predicción:', prediction[0])
+
+```
+
+
+

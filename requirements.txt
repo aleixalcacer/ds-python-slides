@@ -1,0 +1,8 @@
+
+polars
+altair
+seaborn
+scikit-learn
+matplotlib
+streamlit
+notebook
