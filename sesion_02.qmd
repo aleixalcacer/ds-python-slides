@@ -7,6 +7,11 @@ date-format: long
 lang: es
 format:
   revealjs:
+    fig-align: center
+    fig-responsive: true
+    scrollable: true
+    toc: true
+    toc-depth: 1
     smaller: true
     execute:
       echo: true
@@ -43,15 +48,14 @@ La ciencia de datos es un campo interdisciplinario que involucra métodos cient�
 
 1. Definición del problema.
 2. Recopilación de datos.
-3. Preprocesamiento de datos.
-4. Análisis exploratorio de datos.
+3. Análisis exploratorio de datos.
+4. Preprocesamiento de datos.
 5. Modelado de datos.
 6. Evaluación de modelos.
 7. Despliegue de aplicaciones.
 
----
 
-# Importación y limpieza de datos: Pandas
+# Importación y limpieza de datos: `pandas`
 
 ## Pandas
 
@@ -227,7 +231,7 @@ df[(df['A'].between(2, 4)) & (df['B'] > 8)]
 ```
 
 
-# Exploración de datos: Seaborn
+# Exploración de datos: `seaborn`
 
 ## Seaborn
 
@@ -247,6 +251,17 @@ Otras librerías de visualización de datos en Python son:
 
 - `matplotlib`: Librería de visualización de datos de bajo nivel.
 - `altair`: Librería de visualización de datos declarativa e interactiva.
+
+
+```{python}
+#| output: false
+#| echo: false
+
+import seaborn as sns
+
+# set colors and style as default
+sns.set(style='whitegrid', palette='deep')
+```
 
 ---
 
@@ -374,8 +389,54 @@ Algunos aspectos avanzados de `seaborn` son:
 - **FacetGrid**: Permite crear múltiples gráficos en una sola figura.
 - **PairGrid**: Permite visualizar las relaciones entre múltiples variables.
 
+```{python}
 
-# Preprocesamiento y modelado de datos: Scikit-learn
+# Set colors palette
+sns.set_palette('dark')
+
+# Set plot style
+sns.set_style('dark')
+
+```
+
+
+---
+
+```{python}
+
+penguins = sns.load_dataset('penguins')
+
+g = sns.PairGrid(penguins, hue='species')
+g.map_diag(sns.kdeplot)
+g.map_offdiag(sns.scatterplot)
+```
+
+---
+
+```{python}
+
+penguins = sns.load_dataset('penguins')
+
+g = sns.FacetGrid(penguins, col='island', hue='species')
+g.map(sns.kdeplot, 'body_mass_g')
+
+```
+
+```{python}
+
+g = sns.FacetGrid(penguins, col='island', hue='species')
+g.map(sns.scatterplot, 'bill_length_mm', 'bill_depth_mm')
+```
+
+---
+
+```{python}
+
+g = sns.FacetGrid(penguins, col='island', hue='species', row='species')
+g.map(sns.scatterplot, 'bill_length_mm', 'bill_depth_mm')
+```
+
+# Preprocesamiento y modelado de datos: `scikit-learn`
 
 ## Scikit-learn
 
@@ -406,6 +467,7 @@ Antes de entrenar un modelo, es necesario preprocesar los datos. Algunas técnic
 - **Escalamiento de características**: Normaliza las características para que tengan la misma escala.
 
   ```{python}
+
   from sklearn.preprocessing import StandardScaler
 
   penguins = sns.load_dataset('penguins').dropna()
@@ -550,7 +612,7 @@ print(f'F1-score: {f1}')
 ```
 
 
-# Despliegue de aplicaciones: Streamlit
+# Despliegue de aplicaciones: `streamlit`
 
 ## Streamlit
 
@@ -741,4 +803,12 @@ else:
 ```
 
 
+# Conclusiones
 
+## Resumen
+
+- El análisis de datos es un campo interdisciplinario que involucra métodos científicos, procesos y sistemas para extraer conocimiento o un mejor entendimiento de datos en sus diferentes formas.
+- `pandas` es una librería de Python que proporciona estructuras de datos y herramientas de análisis de datos.
+- `seaborn` es una librería de Python que proporciona una interfaz de alto nivel para crear gráficos estadísticos.
+- `scikit-learn` es una librería de Python que proporciona herramientas simples y eficientes para el aprendizaje automático.
+- `streamlit` es una librería de Python que permite crear aplicaciones web interactivas para el análisis de datos.

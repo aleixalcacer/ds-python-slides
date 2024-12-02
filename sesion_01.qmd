@@ -7,6 +7,8 @@ date-format: long
 lang: es
 format:
   revealjs:
+    toc: true
+    toc-depth: 1
     smaller: true
     execute:
       echo: true
@@ -16,6 +18,17 @@ format:
 
 # Introducción
 
+## Objetivos
+
+1. Conocer las características y aplicaciones de Python.
+2. Aprender los conceptos básicos del lenguaje.
+3. Instalar Python con Anaconda y Google Colab.
+4. Trabajar con tipos de datos, operadores y estructuras de control.
+5. Crear funciones y clases.
+6. Manejar excepciones.
+7. Utilizar módulos y paquetes.
+
+
 ## ¿Qué es Python? 🐍
 
 - **Python** es un lenguaje de programación creado por **Guido van Rossum** en 1991.
@@ -23,23 +36,21 @@ format:
 - **Características**:
   - Lenguaje de propósito general.
   - Código abierto y multiplataforma.
-  - Enorme ecosistema de bibliotecas.
+  - Enorme ecosistema de librerías.
   - Comunidad activa y en crecimiento.
+  - Interpretado y de tipado dinámico.
 - **Aplicaciones**:
   - Ciencia de datos y aprendizaje automático.
-  - Desarrollo web con frameworks como Django y Flask.
+  - Desarrollo web con frameworks como Django, Flask o Streamlit.
   - Automatización de tareas (scripts, bots, scraping).
 
 ---
 
 ## Conceptos básicos
-
-1. **Separación de instrucciones**: Cada línea contiene una instrucción, haciendo el código más legible.  
-    - Se utiliza el carácter `;` para separar instrucciones en la misma línea.
-2. **Variables**: Los datos pueden almacenarse en variables para usarlos posteriormente.  
-   - Una variable es un nombre que comienza con una letra y no contiene espacios. 
-3. **Comentarios**: Se utilizan para explicar el código y no se ejecutan.  
-   - Comienzan con `#`.
+1. **Ficheros de código**: Los programas de Python se guardan en archivos con extensión `.py`.
+1. **Separación de instrucciones**: Cada línea contiene una instrucción, haciendo el código más legible. Se utiliza el carácter `;` para separar instrucciones en la misma línea.
+2. **Variables**: Los datos pueden almacenarse en variables para usarlos posteriormente.  Una variable es un nombre que comienza con una letra y no contiene espacios. 
+3. **Comentarios**: Se utilizan para explicar el código y no se ejecutan.bComienzan con `#`.
 4. **Impresión de resultados**: Se utiliza la función `print()` para mostrar resultados en la consola. 
  
 ```{python}
@@ -49,10 +60,42 @@ edad = 25  # Variable de tipo entero
 print("Nombre:", nombre, "Edad:", edad)
 ```
 
+## Instalación de Python: Anaconda
+
+- **[Anaconda](https://www.anaconda.com/products/distribution)** es una distribución de Python que incluye una gran cantidad de paquetes y herramientas para la ciencia de datos.
+
+- **Ventajas**:
+  - Instalación sencilla y rápida.
+  - Entorno de desarrollo `Jupyter Notebook`.
+  - Interfaz gráfica `Anaconda Navigator`.
+
+- **Instalación**:
+  - Descargar el instalador desde la [página oficial](https://www.anaconda.com/products/distribution).
+  - Ejecutar el instalador y seguir las instrucciones.
+
+- **Uso**:
+  - Abrir un terminal y ejecutar el comando `python nombre_script.py`.
+
+## Google Colab
+
+- **[Google Colab](https://colab.research.google.com/)** es un entorno de ejecución de Python en la nube basado en Jupyter Notebook.
+
+- **Ventajas**:
+  - No requiere instalación.
+  - Acceso a recursos de Google (GPU, TPU).
+  - Compartir y colaborar en tiempo real.
+
+- **Uso**:
+  - Crear un nuevo notebook o subir uno existente.
+  - Ejecutar celdas de código con `Shift + Enter`.
+  - Guardar el notebook en Google Drive o en GitHub.
+
 
 # Tipos de datos
 
-## Tipos básicos
+## Definición
+
+Los tipos de datos en Python permiten almacenar diferentes valores y realizar operaciones con ellos.
 
 1. **Numéricos**:
     - **Enteros (`int`)**: Números sin decimales.  
@@ -83,8 +126,8 @@ print("Nombre:", nombre, "Edad:", edad)
 
 3. **Booleanos (`bool`)**: Valores lógicos `True` o `False`.  
    ```{python}
-   es_mayor = 5 > 3
-   print(es_mayor)  # Salida: True
+   es_true = True
+   print(es_true)  # Salida: True
    ```
 
 4. **None**: Representa la ausencia de valor.  
@@ -136,7 +179,7 @@ print("El resto de la división entre x e y es:", x % y)  # Salida: 1
 
 | Operador | Descripción   | Ejemplo            | Salida           |
 |:--------:|:-------------:|:------------------:|:----------------:|
-| `+`      | Concatenación | `"Hola" + "Mundo"` | `"Hola Mundo"`   |
+| `+`      | Concatenación | `"Hola" + "Mundo"` | `"HolaMundo"`   |
 | `*`      | Repetición    | `"Hola" * 3`       | `"HolaHolaHola"` |
 
 
@@ -145,7 +188,7 @@ cadena1 = "Hola"
 cadena2 = "Mundo"
 
 # Concatenación
-print("Concatenación:", cadena1 + " " + cadena2)  # Salida: Hola Mundo
+print("Concatenación:", cadena1 + cadena2)  # Salida: HolaMundo
 
 # Repetición
 print("Repetición:", cadena1 * 3)  # Salida: HolaHolaHola
@@ -196,11 +239,13 @@ print("¿Alguna de las condiciones es verdadera?", condA or condB)  # Salida: Tr
 print("¿La condición A es falsa?", not condA)  # Salida: False
 ```
 
-# Estructuras Condicionales
+# Estructuras de control
 
-## If, Else y Elif
+## Condicionales
 
 Permiten tomar decisiones basadas en condiciones.
+
+### If, Else y Elif
 
 - **`if`**: ejecuta un bloque de código si se cumple una condición.
 - **`else`**: ejecuta un bloque de código si no se cumple la condición.
@@ -247,7 +292,7 @@ print("El número", n, "es divisible por 7")
 ```{python}
 n = 0
 
-while n < 10:  # Bucle infinito
+while n < 10:
     if n % 3 == 0:
         n += 1
         continue
@@ -264,7 +309,7 @@ while n < 10:  # Bucle infinito
 A menudo se utiliza con la función **`range()`**, que genera una secuencia de números.
 
 ```{python}
-for i in range(4):
+for i in range(4): 
     print(f"Iteración {i}")
 ```
 
@@ -307,7 +352,7 @@ print("3 elevado al cubo es:", resultado)  # Salida: 27
 ```
 
 
-# Classes y Objetos
+# Clases y Objetos
 
 ## Definición
 
@@ -343,7 +388,7 @@ print("¿Es Ana mayor de edad?", ana.es_mayor_de_edad())  # Salida: True
 
 juan = Persona("Juan", 17)
 
-print("¿És Juan mayor que Ana?", juan.es_mayor_de_edad() > ana.es_mayor_de_edad())  # Salida: False
+print("¿És Juan mayor que Ana?", juan.edad > ana.edad)  # Salida: False
 ```
 
 ## Clase `list`
@@ -464,8 +509,8 @@ Un módulo es un archivo que contiene definiciones y declaraciones de Python. Pu
 
 - **Creación de módulos**: se crea un archivo con extensión `.py` y se guardan las definiciones en él.
 
-  ```python
-  # operaciones.py
+  ```{python}
+  %%writefile operaciones.py
 
   def suma(a, b):
       return a + b
@@ -581,7 +626,7 @@ Además de los módulos estándar, Python cuenta con una gran cantidad de paquet
   Algunos paquetes populares son:
   - **`numpy`**: operaciones matemáticas avanzadas de matrices y vectores.
   - **`pandas`**: manipulación y análisis de datos estructurados.
-  - **`matplotlib`**: visualización de datos.
+  - **`seaborn`**: visualización de datos.
   - **`scikit-learn`**: aprendizaje automático y minería de datos.
 
 # Conclusiones
@@ -593,10 +638,3 @@ Además de los módulos estándar, Python cuenta con una gran cantidad de paquet
 - Las funciones y clases permiten organizar y reutilizar el código.
 - El manejo de excepciones evita que los errores detengan la ejecución del programa.
 - Los módulos y paquetes permiten extender las funcionalidades de Python.
-
-### Próximos Pasos
-
-- Aprender cual es el proceso de análisis de datos.
-- Conocer las librerías más utilizadas en Data Science en cada etapa del proceso.
-- Realizar un mini-proyecto de análisis de datos.
-
